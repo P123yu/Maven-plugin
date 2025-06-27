@@ -1,4 +1,8 @@
 
+
+# ENVIRONMENT VARIABLE IN SPRINGBOOT =============================================================
+
+
 # maven plugin for using environment variables in spring-boot  ( for normal spring-boot and jar)
 
         <dependency>
@@ -9,3 +13,159 @@
 
 # note: for running normal spring-boot application we have to make .env file under main root directory of our spring-boot project and for inserting environment variables properties 
 inside jar we have to make one more .env file under resources directory 
+
+
+
+===================== default application.properties ( form where spring-boot read values by default) ======================
+
+#1. application.properties ================================================================================================
+
+
+spring.application.name=EwdsBackend
+
+spring.profiles.active=${PROFILE}  ==> based on this profile it is going to decide that spring will run in developer or production mode. 
+
+=====================  for development application.properties file  ========================================================
+
+#2.  application-dev.properties ============================================================================================
+
+
+# === Server Port (optional) ===
+server.port=${DEV_SERVER_PORT}
+
+# === Datasource Configuration ===
+
+spring.datasource.url=jdbc:mysql://${DEV_DB_URL}:3306/${DEV_DB_NAME}
+spring.datasource.username=${DEV_DB_USERNAME}
+spring.datasource.password=${DEV_DB_PASSWORD}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# === JPA (Hibernate) Configuration ===
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+# === Logging (optional) ===
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql=TRACE
+
+
+# === File Upload Limits ===
+spring.servlet.multipart.max-file-size=${MAX_FILE_SIZE}
+spring.servlet.multipart.max-request-size=${MAX_REQUEST_SIZE}
+
+
+
+
+=====================  for production application.properties file  =====================================================
+
+#3.  application-prod.properties ============================================================================================
+
+
+# === Server Port (optional) ===
+server.port=${PROD_SERVER_PORT}
+
+# === Datasource Configuration ===
+
+spring.datasource.url=jdbc:mysql://${PROD_DB_URL}:3306/${PROD_DB_NAME}
+spring.datasource.username=${PROD_DB_USERNAME}
+spring.datasource.password=${PROD_DB_PASSWORD}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# === JPA (Hibernate) Configuration ===
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+# === Logging (optional) ===
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql=TRACE
+
+
+# === File Upload Limits ===
+spring.servlet.multipart.max-file-size=${MAX_FILE_SIZE}
+spring.servlet.multipart.max-request-size=${MAX_REQUEST_SIZE}
+
+
+
+# ========================================================= ENVIRMONEMT VARIABLES IN SPRING-BOOT================================================================
+
+
+
+==========================   .env file  (in main directory under spring-boot project to run spring-boot and insert .env value into respective application.properties) =======
+
+
+
+#============================================= DEVELOPMENT ======================================
+
+# DEVELOPMENT  ===============================
+
+# Development Database configuration for the Citizen Portal CMS
+DEV_DB_NAME=db-name
+
+# Development database credentials
+DEV_DB_USERNAME=local-db-username
+DEV_DB_PASSWORD=local-db-password
+DEV_DB_URL=localhost
+
+#PROFILE
+PROFILE=dev
+
+# Development Server port
+DEV_SERVER_PORT=5000
+
+
+# ======================================= PRODUCTION ===========================================
+
+# PRODUCTION ====================================
+
+
+# Production Database configuration for the Citizen Portal CMS
+PROD_DB_NAME=production-db-name
+
+# Production database credentials
+PROD_DB_USERNAME=production-db-user-name
+PROD_DB_PASSWORD=production-db-password
+PROD_DB_URL=production-db-url
+
+
+#PROFILE
+#PROFILE=prod
+
+# Server port
+PROD_SERVER_PORT=8080
+
+
+# =============================== COMMON (DEVELOPMENT & PRODUCTION)============================
+
+# File upload limits
+MAX_FILE_SIZE=5MB
+MAX_REQUEST_SIZE=100MB
+
+
+
+
+
+# ========================================================= ENVIRMONEMT VARIABLES IN SPRING-BOOT FOR JAR (FOR CREATING .JAR)=============================================================
+
+copy that .env file similar like .env file which is kept under and main root directory of spring-boot and paste this .env file under resources directory so that new .env file
+under resources directory can generate jar file and paste all the values of .env file to .jar file so that when we run jar that .env file configuration copy into new created jar
+and when we run jar then jar run on that defined configuration of new spring-boot application
+
+
+# ================================  note: before pushing our spring-boot project to git hub make sure keep .env file under .gitIgnore so that env file not expose on github ============
+
+### Environment Files ###
+.env
+
+
+
+
+
+
+
+
+
+
+
+
