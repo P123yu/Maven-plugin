@@ -1,0 +1,11 @@
+
+# maven plugin for using environment variables in spring-boot  ( for normal spring-boot and jar)
+
+        <dependency>
+            <groupId>me.paulschwarz</groupId>
+            <artifactId>spring-dotenv</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
+# note: for running normal spring-boot application we have to make .env file under main root directory of our spring-boot project and for inserting environment variables properties 
+inside jar we have to make one more .env file under resources directory 
